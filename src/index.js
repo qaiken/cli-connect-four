@@ -15,6 +15,10 @@ module.exports = () => {
   }
 
   switch (cmd) {
+    case 'play':
+      require('./cmds/play')(args);
+      break;
+
     case 'version':
       require('./cmds/version')(args);
       break;
