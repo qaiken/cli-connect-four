@@ -23,6 +23,10 @@ module.exports = () => {
       require('./cmds/version')(args);
       break;
 
+    case 'help':
+      require('./cmds/help')(args);
+      break;
+
     default:
       error(`"${cmd}" is not a valid command`);
   }
