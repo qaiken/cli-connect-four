@@ -1,0 +1,74 @@
+{
+  "name": "cli-connect-four",
+  "version": "0.0.1",
+  "description": "A CLI for playing connect four",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint . --ext js",
+    "test": "jest --silent",
+    "test:coverage": "npm run test -- --coverage",
+    "publish": "npx semantic-release"
+  },
+  "bin": {
+    "connect-four": "bin/connect-four"
+  },
+  "preferGlobal": true,
+  "keywords": [
+    "games",
+    "connect",
+    "four"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qaiken/cli-connect-four.git"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "{src,test}/**/*.{js,jsx,json}": [
+      "prettier --write",
+      "git add",
+      "npm run lint"
+    ]
+  },
+  "files": [
+    "bin/",
+    "src/"
+  ],
+  "author": "Quinton Aiken <quintonlaiken@gmail.com> (http://quintonlouisaiken.com)",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jest": "^22.15.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.3",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2",
+    "semantic-release": "^15.13.19"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  }
+}
