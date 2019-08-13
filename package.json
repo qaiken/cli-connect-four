@@ -1,6 +1,6 @@
 {
   "name": "cli-connect-four",
-  "version": "0.0.1",
+  "version": "0.0.0-semantically-released",
   "description": "A CLI for playing connect four",
   "main": "src/index.js",
   "scripts": {
