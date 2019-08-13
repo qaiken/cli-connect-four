@@ -1,0 +1,60 @@
+defaults: &defaults
+  docker:
+    - image: circleci/node:10.15.1-browsers
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    environment:
+      - NODE_ENV: development
+    steps:
+      - checkout
+      - restore_cache:
+          key: &cache_key dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Installing dependencies with `npm install`
+          command: |
+            npm install
+      - save_cache:
+          key: *cache_key
+          paths:
+            - node_modules
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Test
+          command: npm run test:coverage
+
+  publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: *cache_key
+      - run:
+          name: Publish
+          command: npm run publish
+
+workflows:
+  version: 2
+  test_and_release:
+    jobs:
+      - test:
+          requires:
+            - build
+      - publish:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
